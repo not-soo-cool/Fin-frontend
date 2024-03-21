@@ -277,10 +277,9 @@ const Page = () => {
       toast.error(withdrawlError, toastOptions);
       dispatch({type: "clearErrors"});
     }
-  }, [message, error, withdrawlMessage, withdrawlError])
+  }, [message, error, withdrawlMessage, withdrawlError, dispatch, toastOptions])
 
   return (
-    
     <>
       <Head>
         <title>

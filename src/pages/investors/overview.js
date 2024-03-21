@@ -42,7 +42,7 @@ const Page = () => {
   useEffect(() => {
     setIsClient(true);
     dispatch(loadInvestor());
-  }, [])
+  }, [dispatch])
 
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Page = () => {
     if(error){
       console.log("Error: ", error)
     }
-  }, [investor])
+  }, [investor, error])
 
   return(
     <>

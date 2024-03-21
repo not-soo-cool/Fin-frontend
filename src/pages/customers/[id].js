@@ -107,7 +107,7 @@ const Page = () => {
         dispatch(loadInvestor())
       }
     }
-  }, [customerLoading, dispatch])
+  }, [customerLoading, dispatch, isCustomerAuthenticated])
 
   useEffect(() => {
     setIsClient(true);
