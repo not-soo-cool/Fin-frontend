@@ -163,7 +163,7 @@ const data = [
   }
 ];
 
-const useInvestorIds = (investors) => {
+const getInvestorIds = (investors) => {
   return investors.map((investor) => investor._id);
 };
 
@@ -237,7 +237,7 @@ const Page = () => {
     const searches = investors.filter(item => item.name.includes(val));
     setCount(searches.length)
     setInvestorsList(searches);
-    setInvestorsIds(useInvestorIds(searches));
+    setInvestorsIds(getInvestorIds(searches));
     setCustomers(applyPagination(searches, page, rowsPerPage))
   }
 
@@ -250,7 +250,7 @@ const Page = () => {
   useEffect(() => {
     if(investorsList){
       setCount(investorsList.length)
-      setInvestorsIds(useInvestorIds(investorsList));
+      setInvestorsIds(getInvestorIds(investorsList));
       setCustomers(applyPagination(investorsList, page, rowsPerPage))
     }
   }, [investorsList, page, rowsPerPage])
