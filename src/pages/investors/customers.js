@@ -161,7 +161,7 @@ const data = [
   }
 ];
 
-const useCustomerIds = (customers) => {
+const getCustomerIds = (customers) => {
   return customers.map((customer) => customer._id);
 };
 
@@ -205,7 +205,7 @@ const Page = () => {
     const combined = [...new Set([...local, ...searches])]
     setCount(combined.length)
     setCustomersList(combined);
-    setCustomersIds(useCustomerIds(combined));
+    setCustomersIds(getCustomerIds(combined));
     setCustomersAv(applyPagination(combined, page, rowsPerPage))
   }
 
@@ -218,7 +218,7 @@ const Page = () => {
   useEffect(() => {
     if(customersList){
       setCount(customersList.length)
-      setCustomersIds(useCustomerIds(customersList));
+      setCustomersIds(getCustomerIds(customersList));
       setCustomersAv(applyPagination(customersList, page, rowsPerPage))
     }
   }, [customersList, page, rowsPerPage])

@@ -21,7 +21,7 @@ const Landing = () => {
       dispatch(loadAdmin());
       dispatch(loadInvestor());
       dispatch(loadCustomer());
-    }, []);
+    }, [dispatch]);
 
     // useEffect(() => {
     //   if(!loading){

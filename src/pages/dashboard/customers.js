@@ -162,13 +162,11 @@ const data = [
   }
 ];
 
-const useCustomerIds = (customers) => {
+const getCustomerIds = (customers) => {
   return customers.map((customer) => customer._id);
 };
 
 const Page = () => {
-
-  let temp;
 
   const toastOptions = {
     position: "bottom-center",
@@ -244,7 +242,7 @@ const Page = () => {
     const combined = [...new Set([...local, ...searches])]
     setCount(combined.length)
     setCustomersList(combined);
-    setCustomersIds(useCustomerIds(combined));
+    setCustomersIds(getCustomerIds(combined));
     setCustomersAv(applyPagination(combined, page, rowsPerPage))
   }
 
@@ -257,7 +255,7 @@ const Page = () => {
   useEffect(() => {
     if(customersList){
       setCount(customersList.length)
-      setCustomersIds(useCustomerIds(customersList));
+      setCustomersIds(getCustomerIds(customersList));
       setCustomersAv(applyPagination(customersList, page, rowsPerPage))
     }
   }, [customersList, page, rowsPerPage])
@@ -288,7 +286,7 @@ const Page = () => {
       toast.error(instalError, toastOptions);
       dispatch({type: "clearErrors"});
     }
-  }, [message, error, instalMessage, instalError])
+  }, [message, error, instalMessage, instalError, dispatch, toastOptions])
 
 
   return (

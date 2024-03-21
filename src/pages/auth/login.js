@@ -129,7 +129,7 @@ const Page = () => {
     if(customer){
       router.push(`/customers/${customer._id}`)
     }
-  }, [error, message, dispatch, isAdminAuthenticated, isInvestorAuthenticated, isCustomerAuthenticated, customer]);
+  }, [error, message, dispatch, isAdminAuthenticated, isInvestorAuthenticated, isCustomerAuthenticated, customer, router]);
 
   return (
     <>

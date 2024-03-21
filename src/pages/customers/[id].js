@@ -99,7 +99,7 @@ const Page = () => {
       dispatch(getCustomer(params.id))
       dispatch(getUserInstalments(params.id))
     }
-  }, [params])
+  }, [params, dispatch])
 
   useEffect(() => {
     if(!customerLoading){
@@ -107,7 +107,7 @@ const Page = () => {
         dispatch(loadInvestor())
       }
     }
-  }, [customerLoading])
+  }, [customerLoading, dispatch])
 
   useEffect(() => {
     setIsClient(true);
@@ -129,7 +129,7 @@ const Page = () => {
     if(error){
       console.log("Error: ", error)
     }
-  }, [customer])
+  }, [customer, error])
 
   return(
   <>
@@ -162,9 +162,12 @@ const Page = () => {
             }}
           >
             {!isCustomerAuthenticated && 
-            <Link href={ isInvestorAuthenticated ? `/investors/customers` : `/dashboard/customers`} style={{
-              textDecoration: 'none'
-            }}>
+            <Link 
+              href={ isInvestorAuthenticated ? `/investors/customers` : `/dashboard/customers`} 
+              style={{
+                textDecoration: 'none'
+              }}
+            >
               <Button
                 variant='contained'
                 sx={{backgroundColor: 'rgba(0,0,0,0.4)'}}

@@ -42,7 +42,7 @@ const Page = () => {
       toast.error(error, toastOptions);
       dispatch({type: "clearErrors"});
     }
-  }, [message, error])
+  }, [message, error, dispatch, toastOptions])
 
 
   return(

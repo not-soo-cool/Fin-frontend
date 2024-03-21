@@ -95,7 +95,7 @@ const Page = () => {
   useEffect(() => {
     setIsClient(true);
     dispatch(loadAdmin());
-  }, [])
+  }, [dispatch])
 
 
   useEffect(() => {
@@ -136,9 +136,12 @@ const Page = () => {
               alignItems='center'
               spacing={4}
             >
-              <Link href={`/dashboard/investors`} style={{
-                textDecoration: 'none'
-              }}>
+              <Link 
+                href={`/dashboard/investors`} 
+                style={{
+                  textDecoration: 'none'
+                }}
+              >
                 <Button
                   variant='contained'
                   sx={{backgroundColor: 'rgba(0,0,0,0.4)'}}

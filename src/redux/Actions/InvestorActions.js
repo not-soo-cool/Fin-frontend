@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const serverUrl = "http://localhost:8080/api/v1/investor"
+// const serverUrl = "http://localhost:8080/api/v1/investor"
+const serverUrl = "https://fin-backend-14d0.onrender.com/api/v1/investor"
 
 export const loginInvestor = (email, password) => async(dispatch) =>{
 
