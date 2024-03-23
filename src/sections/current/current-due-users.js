@@ -86,7 +86,7 @@ export const CurrentDueUsers = (props) => {
                   primary={user.name}
                   primaryTypographyProps={{ variant: 'subtitle1' }}
                   // secondary={`₹ ${user.amountDue} due ${days} ago`}
-                  secondary={`₹ ${user.amountDue} due since ${date}th ${month}, ${year}`}
+                  secondary={`₹ ${user.netNextEMI} due since ${date}th ${month}, ${year}`}
                   secondaryTypographyProps={{ variant: 'body2' }}
                 />
                 <IconButton edge="end">
