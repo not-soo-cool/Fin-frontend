@@ -26,10 +26,22 @@ import { loadInvestor } from 'src/redux/Actions/InvestorActions';
 import { applyPagination } from 'src/utils/apply-pagination';
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon';
 import { EditCustomer } from 'src/sections/customers/customer/customer-edit';
+import { toast } from 'react-toastify';
 
 const now = new Date();
 
 const Page = () => {
+
+  const toastOptions = {
+    position: "bottom-center",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  }
 
   const dialogSize = 'lg';
 
@@ -127,7 +139,7 @@ const Page = () => {
       }
     }
     if(error){
-      console.log("Error: ", error)
+      toast.error(error, toastOptions)
     }
   }, [customer, error])
 

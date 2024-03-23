@@ -21,10 +21,22 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInvestor } from 'src/redux/Actions/AdminActions';
 import { loadInvestor } from 'src/redux/Actions/InvestorActions';
+import { toast } from 'react-toastify';
 
 const now = new Date();
 
 const Page = () => {
+
+  const toastOptions = {
+    position: "bottom-center",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  }
 
 //   const params = useParams();
   const dispatch = useDispatch();
@@ -55,7 +67,7 @@ const Page = () => {
       }
     }
     if(error){
-      console.log("Error: ", error)
+      toast.error(error, toastOptions)
     }
   }, [investor, error])
 

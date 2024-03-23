@@ -18,8 +18,6 @@ export const loginCustomer = (email, password) => async(dispatch) =>{
             },
         });
 
-        console.log(data)
-
         dispatch({
             type: "CustomerLoginSuccess",
             payload: data.message
@@ -67,8 +65,6 @@ export const loadCustomer = () => async(dispatch) => {
         const {data} = await axios.get(`${serverUrl}/me`, {
             withCredentials: true,
         });
-
-        // console.log(data);
 
         dispatch({
             type: "LoadCustomerSuccess",
