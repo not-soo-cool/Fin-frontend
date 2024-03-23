@@ -40,7 +40,7 @@ export const CustomerRemaining = (props) => {
               Amount Remaining
             </Typography>
             <Typography variant="h4">
-              ₹ {value ? value.details.netRem : 0}
+              ₹ {value ? value.details.netRem>20 ? value.details.netRem : 0 : 0}
             </Typography>
           </Stack>
           <Avatar
