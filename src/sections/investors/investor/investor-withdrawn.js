@@ -10,9 +10,17 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export const InvestorWithdrawn = (props) => {
-  const { value, sx } = props;
+  const { value, diff, sx } = props;
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if(diff){
+      setProgress(diff.withdrawn*100/diff.moneyTotal);
+    }
+  }, [diff])
 
   return (
     <Card sx={sx}>
@@ -49,7 +57,7 @@ export const InvestorWithdrawn = (props) => {
         </Stack>
         <Box sx={{ mt: 3 }}>
           <LinearProgress
-            value={value}
+            value={progress}
             variant="determinate"
           />
         </Box>

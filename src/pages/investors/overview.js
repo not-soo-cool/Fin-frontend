@@ -142,6 +142,7 @@ const Page = () => {
               <InvestorWithdrawn
                 sx={{ height: '100%' }}
                 value={investor ? investor.lifetime.withdrawn : 0}
+                diff = {investor ? investor.lifetime : 0}
               />
             </Grid>
             <Grid

@@ -32,7 +32,7 @@ export const InvestorBank = (props) => {
               ROI (Month)
             </Typography>
             <Typography variant="h4">
-              {value}%
+              {value ? value.toFixed(1) : 0}%
             </Typography>
           </Stack>
           <Avatar

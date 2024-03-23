@@ -24,7 +24,7 @@ export const InvestorPrevProfit = (props) => {
               Curr Month Profit
             </Typography>
             <Typography variant="h4">
-              ₹ {value}
+              ₹ {value ? value.toFixed(0) : 0}
             </Typography>
           </Stack>
           <Avatar

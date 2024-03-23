@@ -24,7 +24,7 @@ export const InvestorCurrInvested = (props) => {
               Current Invested
             </Typography>
             <Typography variant="h4">
-              ₹ {value}
+              ₹ {value ? value.toFixed(0) : 0}
             </Typography>
           </Stack>
           <Avatar
