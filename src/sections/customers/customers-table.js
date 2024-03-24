@@ -96,7 +96,7 @@ export const CustomersTable = (props) => {
               {items && items.map((customer, index) => {
                 const isSelected = selected.includes(customer._id);
                 const date = new Date(customer.nextEMIDate)
-                const createdAt = format(date, 'dd/MM/yyyy');
+                const instalDate = format(date, 'dd/MM/yyyy');
 
                 return (
                   <TableRow
@@ -152,7 +152,11 @@ export const CustomersTable = (props) => {
                       {customer.mob}
                     </TableCell>
                     <TableCell>
-                      {createdAt}
+                      {customer.amountDue === 0 ? 
+                        <SeverityPill color={  statusMap['completed']}>
+                        {"Completed"}
+                      </SeverityPill> :
+                      instalDate}
                     </TableCell>
                     <TableCell>
                       <SeverityPill color={ customer.amountDue === 0 ? statusMap['completed'] : customer.inProgress ? statusMap['progress'] : statusMap['toStart']}>
