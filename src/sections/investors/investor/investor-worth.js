@@ -24,7 +24,7 @@ export const InvestorWorth = (props) => {
               Net Money Worth
             </Typography>
             <Typography variant="h4">
-              ₹ {value ? value.toFixed(0) : 0}
+              ₹ {value ? value : 0}
             </Typography>
           </Stack>
           <Avatar

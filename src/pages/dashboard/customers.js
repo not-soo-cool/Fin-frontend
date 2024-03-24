@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
+import FunnelIcon from '@heroicons/react/24/solid/FunnelIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
 import { Box, Button, Card, CardContent, CardHeader, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Stack, SvgIcon, TextField, Typography, useMediaQuery } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
@@ -195,6 +196,7 @@ const Page = () => {
 
   const [ customersList, setCustomersList ] = useState([]);
   const [count, setCount] = useState(0);
+  const [combine, setCombine] = useState();
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState([]);
   const theme = useTheme();
@@ -238,17 +240,47 @@ const Page = () => {
 
   const handleSearch = (val) => {
     const searches = customers.filter(item => item.name.toLowerCase().includes(val.toLowerCase()));
-    const local = customers.filter(item => item.address.street.toLowerCase().includes(val.toLowerCase()));
-    const combined = [...new Set([...local, ...searches])]
+    const streetSearch = customers.filter(item => item.address.street.toLowerCase().includes(val.toLowerCase()));
+    const emailSearch = customers.filter(item => item.email.toLowerCase().includes(val.toLowerCase()));
+    const phoneSearch = customers.filter(item => {
+      const mobString = String(item.mob);
+      return mobString.toLowerCase().includes(val.toLowerCase());
+    })
+    const combined = [...new Set([...streetSearch, ...searches, ...emailSearch, ...phoneSearch, ...phoneSearch])]
+    setCombine(combined);
     setCount(combined.length)
     setCustomersList(combined);
     setCustomersIds(getCustomerIds(combined));
     setCustomersAv(applyPagination(combined, page, rowsPerPage))
   }
 
+  const handleSelect = (val) => {
+    let selects, combined;
+    if(val === 'All'){
+      combined = combine
+
+    } else if(val === 'Completed'){
+      combined = combine.filter(item => item.amountDue === 0)
+
+    } else if(val === 'Progress'){
+      selects = combine.filter(item => item.amountDue !== 0)
+      combined = selects.filter(item => item.inProgress === true)
+
+    } else {
+      combined = combine.filter(item => item.inProgress === false)
+    }
+
+    setCount(combined.length)
+    setCustomersList(combined);
+    setCustomersIds(getCustomerIds(combined));
+    setCustomersAv(applyPagination(combined, page, rowsPerPage))
+    
+  }
+
   useEffect(()=> {
     if(customers){
       setCustomersList(customers);
+      setCombine(customers);
     }
   }, [customers])
 
@@ -347,7 +379,25 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <CustomersSearch onSearch={handleSearch} />
+            {/* <Stack
+              direction="row"
+              justifyContent="space-between"
+              spacing={4}
+            > */}
+              <CustomersSearch onSearch={handleSearch} onSelect={handleSelect}/>
+
+              {/* <Button
+                color="inherit"
+                startIcon={(
+                  <SvgIcon fontSize="small">
+                    <FunnelIcon />
+                  </SvgIcon>
+                )}
+              >
+                Export
+              </Button> */}
+
+            {/* </Stack> */}
             {customers && 
             <CustomersTable
               customers={customers}

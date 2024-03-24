@@ -183,7 +183,7 @@ const Page = () => {
                 difference={12}
                 positive
                 sx={{ height: '100%' }}
-                value={investor ? investor.lifetime.moneyTotal : 0}
+                value={investor ? investor.lifetime.moneyTotal.toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -195,7 +195,7 @@ const Page = () => {
                 difference={16}
                 positive={false}
                 sx={{ height: '100%' }}
-                value={investor ? (investor.lifetime.moneyTotal + investor.lifetime.profit).toFixed(2) : 0}
+                value={investor ? (investor.lifetime.moneyTotal + investor.lifetime.profit).toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -205,7 +205,7 @@ const Page = () => {
             >
               <InvestorWithdrawn
                 sx={{ height: '100%' }}
-                value={investor ? investor.lifetime.withdrawn : 0}
+                value={investor ? investor.lifetime.withdrawn.toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -215,7 +215,7 @@ const Page = () => {
             >
               <InvestorProfit
                 sx={{ height: '100%' }}
-                value={investor ? investor.lifetime.profit.toFixed(2) : 0}
+                value={investor ? investor.lifetime.profit.toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -259,7 +259,7 @@ const Page = () => {
             >
               <InvestorAvailable
                 sx={{ height: '100%' }}
-                value={investor ? investor.current.moneyRem : 0}
+                value={investor ? investor.current.moneyRem.toFixed(0) : 0}
               />
             </Grid>
             <Grid
