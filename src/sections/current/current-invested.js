@@ -12,7 +12,7 @@ export const CurrentInvested = (props) => {
   const [positive, setPositive] = useState(false);
   
   useEffect(() => {
-    const diff = (value*100/prev - 100).toFixed(0);
+    const diff = (value*100/prev - 100).toFixed(1);
     if(diff >= 0){
       setDifference(diff);
       setPositive(true)

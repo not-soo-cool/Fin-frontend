@@ -173,8 +173,6 @@ const Page = () => {
             lg={3}
           >
             <CurrentRemain
-              difference={16}
-              positive={false}
               sx={{ height: '100%' }}
               value={admin ? admin.current.moneyRem : 0}
               prev={admin ? admin.current.prevMoneyRem : 0}

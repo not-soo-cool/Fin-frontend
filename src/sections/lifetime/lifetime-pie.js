@@ -82,15 +82,15 @@ const iconMap = {
 };
 
 export const LifetimePie = (props) => {
-  const { lifetime, labels, sx } = props;
+  const { current, labels, sx } = props;
   const chartOptions = useChartOptions(labels);
   const [ options, setOptions ] = useState([])
 
   useEffect(() => {
-    if(lifetime){
-      setOptions([(lifetime.moneyInvest/lifetime.moneyTotal)*100, (1 - lifetime.moneyInvest/lifetime.moneyTotal)*100]);
+    if(current){
+      setOptions([(1 - current.moneyRem/current.netWorth)*100, (current.moneyRem/current.netWorth)*100]);
     }
-  }, [lifetime])
+  }, [current])
 
   return (
     <Card sx={sx}>

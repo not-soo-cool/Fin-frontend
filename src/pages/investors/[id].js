@@ -192,10 +192,9 @@ const Page = () => {
               lg={3}
             >
               <InvestorWorth
-                difference={16}
-                positive={false}
+                difference={investor ? (investor.current.prevMoneyWorth).toFixed(0) : 0}
                 sx={{ height: '100%' }}
-                value={investor ? (investor.lifetime.moneyTotal + investor.lifetime.profit).toFixed(0) : 0}
+                value={investor ? (investor.current.moneyWorth).toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -227,7 +226,7 @@ const Page = () => {
                 difference={12}
                 positive
                 sx={{ height: '100%' }}
-                value={investor ? investor.current.currMoney.toFixed(0) : 0}
+                value={investor ? investor.current.moneyInvest.toFixed(0) : 0}
               />
             </Grid>
             <Grid
@@ -236,7 +235,7 @@ const Page = () => {
               lg={3}
             >
               <InvestorPrevProfit
-                difference={16}
+                difference={investor ? (investor.current.prevMonProfit).toFixed(0) : 0}
                 positive={false}
                 sx={{ height: '100%' }}
                 value={investor ? investor.current.currMonProfit.toFixed(0) : 0}

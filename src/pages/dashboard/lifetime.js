@@ -60,8 +60,6 @@ const Page = () => {
             lg={3}
           >
             <LifetimeInvested
-              difference={16}
-              positive={false}
               sx={{ height: '100%' }}
               value={admin ? admin.lifetime.moneyInvest : 0}
               prev={admin ? admin.lifetime.prevMoneyInvest : 0}
@@ -104,7 +102,7 @@ const Page = () => {
             lg={4}
           >
             <LifetimePie
-              lifetime={admin ? admin.lifetime : ""}
+              current={admin ? admin.current : ""}
               labels={['Amount Invested', 'Amount Remaining']}
               sx={{ height: '100%' }}
             />

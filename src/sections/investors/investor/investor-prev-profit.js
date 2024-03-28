@@ -3,9 +3,23 @@ import ArrowDownIcon from '@heroicons/react/24/solid/ArrowDownIcon';
 import ArrowUpIcon from '@heroicons/react/24/solid/ArrowUpIcon';
 import CurrencyRupeeIcon from '@heroicons/react/24/solid/CurrencyRupeeIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export const InvestorPrevProfit = (props) => {
-  const { difference, positive = false, sx, value } = props;
+  const { difference, sx, value } = props;
+  const [diff, setDiff] = useState(0);
+  const [positive, setPositive] = useState(false);
+
+  useEffect(() => {
+    if(difference && value){
+      if(value - difference > 0){
+        setPositive(true);
+        setDiff((value*100/difference - 100).toFixed(2));
+      } else {
+        setDiff((100 - value*100/difference).toFixed(2));
+      }
+    }
+  }, [difference, value])
 
   return (
     <Card sx={sx}>
@@ -61,7 +75,7 @@ export const InvestorPrevProfit = (props) => {
                 color={positive ? 'success.main' : 'error.main'}
                 variant="body2"
               >
-                {difference}%
+                {diff}%
               </Typography>
             </Stack>
             <Typography
