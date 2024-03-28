@@ -5,7 +5,7 @@ import { AccountProfile } from 'src/sections/account/account-profile';
 import { AccountProfileDetails } from 'src/sections/account/account-profile-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { loadAdmin, updateAdmin } from 'src/redux/Actions/AdminActions';
+import { loadAdmin, updateAdmin, updatePrevAdmin, updatePrevInvestors } from 'src/redux/Actions/AdminActions';
 import { toast } from 'react-toastify';
 
 const Page = () => {
@@ -32,6 +32,11 @@ const Page = () => {
   useEffect(() => {
     dispatch(loadAdmin())
   }, [dispatch])
+
+  setInterval(() => {
+    dispatch(updatePrevAdmin());
+    dispatch(updatePrevInvestors());
+  }, 24*60*60*1000)
 
   useEffect(() => {
     if(message){

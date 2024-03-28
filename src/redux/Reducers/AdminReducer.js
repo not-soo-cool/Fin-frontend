@@ -91,6 +91,14 @@ const GetInstalmentRequest = createAction('GetInstalmentRequest');
 const GetInstalmentSuccess = createAction('GetInstalmentSuccess');
 const GetInstalmentFailure = createAction('GetInstalmentFailure');
 
+const UpdatePrevAdminRequest = createAction('UpdatePrevAdminRequest');
+const UpdatePrevAdminSuccess = createAction('UpdatePrevAdminSuccess');
+const UpdatePrevAdminFailure = createAction('UpdatePrevAdminFailure');
+
+const UpdatePrevInvestorsRequest = createAction('UpdatePrevInvestorsRequest');
+const UpdatePrevInvestorsSuccess = createAction('UpdatePrevInvestorsSuccess');
+const UpdatePrevInvestorsFailure = createAction('UpdatePrevInvestorsFailure');
+
 const ContactRequest = createAction('ContactRequest');
 const ContactSuccess = createAction('ContactSuccess');
 const ContactFailure = createAction('ContactFailure');
@@ -498,6 +506,48 @@ export const updateAdInvestorReducer = createReducer(initialState, (builder) => 
         state.message = action.payload;
     })
     .addCase(UpdateInvestorFailure, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    })
+    .addCase(clearErrors, (state) => {
+        state.error = null;
+    })
+    .addCase(clearMessage, (state) => {
+        state.message = null;
+    })
+})
+
+export const updatePrevAdminReducer = createReducer(initialState, (builder) => {
+    builder
+    .addCase(UpdatePrevAdminRequest, (state) => {
+        state.loading = true;
+    })
+    .addCase(UpdatePrevAdminSuccess, (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    })
+    .addCase(UpdatePrevAdminFailure, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    })
+    .addCase(clearErrors, (state) => {
+        state.error = null;
+    })
+    .addCase(clearMessage, (state) => {
+        state.message = null;
+    })
+})
+
+export const updatePrevInvestorsReducer = createReducer(initialState, (builder) => {
+    builder
+    .addCase(UpdatePrevInvestorsRequest, (state) => {
+        state.loading = true;
+    })
+    .addCase(UpdatePrevInvestorsSuccess, (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    })
+    .addCase(UpdatePrevInvestorsFailure, (state, action) => {
         state.loading = false;
         state.error = action.payload;
     })

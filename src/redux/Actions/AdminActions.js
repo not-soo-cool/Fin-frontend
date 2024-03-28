@@ -500,3 +500,47 @@ export const updateAdInvestor = (firstName, lastName, email, mob, street, city, 
         })
     }
 }
+
+export const updatePrevAdmin = () => async(dispatch) => {
+    try {
+        dispatch({
+            type: "UpdatePrevAdminRequest",
+        });
+
+        const {data} = await axios.get(`${serverUrl}/up/admin`, {
+            withCredentials: true,
+        });
+
+        dispatch({
+            type: "UpdatePrevAdminSuccess",
+            payload: data.message
+        })
+    } catch (error) {
+        dispatch({
+            type: "UpdatePrevAdminFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const updatePrevInvestors = () => async(dispatch) => {
+    try {
+        dispatch({
+            type: "UpdatePrevInvestorsRequest",
+        });
+
+        const {data} = await axios.get(`${serverUrl}/up/investors`, {
+            withCredentials: true,
+        });
+
+        dispatch({
+            type: "UpdatePrevInvestorsSuccess",
+            payload: data.message
+        })
+    } catch (error) {
+        dispatch({
+            type: "UpdatePrevInvestorsFailure",
+            payload: error.response.data.message
+        })
+    }
+}
