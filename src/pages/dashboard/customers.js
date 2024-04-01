@@ -223,10 +223,11 @@ const Page = () => {
   const handleData = (values) => {
     dispatch(addCustomer(values.firstName, values.lastName, values.email, values.mob, values.street, values.city, values.state, values.country, values.postal, values.dob, values.gender, values.aadhar, values.emiDate, values.guarantorName, values.guarantorAdd, values.guarantorPh, values.prodName, values.prodPrice, values.downPay, values.finAmount, values.mon, values.roi, values.invEmail))
     setOpen(false);
+    dispatch(getAllCustomers())
   }
 
   const handleInstal = (val) => {
-    dispatch(addInstalment(val.email, val.month, val.year, val.amount))
+    dispatch(addInstalment(val.email, val.month, val.year, val.amount, val.checked))
     setOpen(false);
     dispatch(getAllCustomers())
   }
@@ -430,8 +431,8 @@ const Page = () => {
             lg={8}
           >
             <AddCustomers 
-              customers={customers}
-              investors={investors}
+              customers={customers ? customers : ""}
+              investors={investors ? investors : ""}
               onAddCustomerData={handleData} 
               onAddInstal={handleInstal}
             />

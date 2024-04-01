@@ -435,13 +435,13 @@ export const getWithdrawl = (id) => async(dispatch) => {
     }
 }
 
-export const addInstalment = (email, month, year, amount) => async(dispatch) => {
+export const addInstalment = (email, month, year, amount, checked) => async(dispatch) => {
     try {
         dispatch({
             type: "AddInstalmentRequest",
         });
 
-        const {data} = await axios.post(`${serverUrl}/add/instalment`, {email, month, year, amount}, {
+        const {data} = await axios.post(`${serverUrl}/add/instalment`, {email, month, year, amount, checked}, {
             withCredentials: true,
         });
 

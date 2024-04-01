@@ -10,7 +10,9 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
   Tabs,
-  Tab
+  Tab,
+  Checkbox,
+  FormControlLabel
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCustomer } from 'src/redux/Actions/AdminActions';
@@ -111,7 +113,8 @@ export const AddCustomers = (props) => {
     monNum: '',
     year: '',
     amount: '',
-    flag: false
+    flag: false,
+    checked: false
   });
 
   const dispatch = useDispatch();
@@ -137,7 +140,13 @@ export const AddCustomers = (props) => {
   }
 
   const handleInstalChange = (e) => {
-    if(e.target.name === 'amount'){
+    if(e.target.name === 'penalty'){
+      setInstalData((prevState) => ({
+        ...prevState,
+        checked: e.target.checked
+      }));
+    }
+    else if(e.target.name === 'amount'){
       setInstalData((prevState) => ({
         ...prevState,
         [e.target.name]: Number(e.target.value)
@@ -300,8 +309,8 @@ export const AddCustomers = (props) => {
         toast.error("Customer details not matched", toastOptions);
       } else if(instalData.amount===''){
         toast.error("Enter instalment amount correctly", toastOptions);
-      } else if(instalData.amount.toString() !== instalData.nextEMI.toString()) {
-        toast.error("Enter amount correctly", toastOptions)
+      } else if(instalData.nextEMI === instalData.amount && instalData.checked){
+        toast.error("Penalty can not be added", toastOptions)
       } else {
         onAddInstal(instalData);
       }
@@ -941,6 +950,21 @@ export const AddCustomers = (props) => {
                   onChange={handleInstalChange}
                   value={instalData.amount}
                 />
+            </Grid>
+            <Grid 
+              xs={6}
+              md={4}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="penalty"
+                    onChange={handleInstalChange}
+                  />
+                }
+                label="Penalty"
+                required
+              />
             </Grid>
           </Grid>
           </Box>}
