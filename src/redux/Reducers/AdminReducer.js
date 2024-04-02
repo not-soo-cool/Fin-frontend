@@ -99,6 +99,14 @@ const UpdatePrevInvestorsRequest = createAction('UpdatePrevInvestorsRequest');
 const UpdatePrevInvestorsSuccess = createAction('UpdatePrevInvestorsSuccess');
 const UpdatePrevInvestorsFailure = createAction('UpdatePrevInvestorsFailure');
 
+const GetNotificationRequest = createAction('GetNotificationRequest');
+const GetNotificationSuccess = createAction('GetNotificationSuccess');
+const GetNotificationFailure = createAction('GetNotificationFailure');
+
+const GetAllNotificationsRequest = createAction('GetAllNotificationsRequest');
+const GetAllNotificationsSuccess = createAction('GetAllNotificationsSuccess');
+const GetAllNotificationsFailure = createAction('GetAllNotificationsFailure');
+
 const ContactRequest = createAction('ContactRequest');
 const ContactSuccess = createAction('ContactSuccess');
 const ContactFailure = createAction('ContactFailure');
@@ -548,6 +556,48 @@ export const updatePrevInvestorsReducer = createReducer(initialState, (builder) 
         state.message = action.payload;
     })
     .addCase(UpdatePrevInvestorsFailure, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    })
+    .addCase(clearErrors, (state) => {
+        state.error = null;
+    })
+    .addCase(clearMessage, (state) => {
+        state.message = null;
+    })
+})
+
+export const getAllNotificationsReducer = createReducer(initialState, (builder) => {
+    builder
+    .addCase(GetAllNotificationsRequest, (state) => {
+        state.loading = true;
+    })
+    .addCase(GetAllNotificationsSuccess, (state, action) => {
+        state.loading = false;
+        state.notifications = action.payload;
+    })
+    .addCase(GetAllNotificationsFailure, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    })
+    .addCase(clearErrors, (state) => {
+        state.error = null;
+    })
+    .addCase(clearMessage, (state) => {
+        state.message = null;
+    })
+})
+
+export const getNotificationReducer = createReducer(initialState, (builder) => {
+    builder
+    .addCase(GetNotificationRequest, (state) => {
+        state.loading = true;
+    })
+    .addCase(GetNotificationSuccess, (state, action) => {
+        state.loading = false;
+        state.notification = action.payload;
+    })
+    .addCase(GetNotificationFailure, (state, action) => {
         state.loading = false;
         state.error = action.payload;
     })

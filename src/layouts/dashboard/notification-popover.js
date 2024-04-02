@@ -1,59 +1,37 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { Box, Button, Divider, MenuItem, MenuList, Popover, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAdmin, logoutAdmin } from 'src/redux/Actions/AdminActions';
-import { loadInvestor, logoutInvestor } from 'src/redux/Actions/InvestorActions';
-import { loadCustomer, logoutCustomer } from 'src/redux/Actions/CustomerAction';
+import { getAllNotifications, loadAdmin } from 'src/redux/Actions/AdminActions';
 
 export const NotificationPopover = (props) => {
   const { anchorEl, onClose, open } = props;
-  const router = useRouter();
+  // const router = useRouter();
   const dispatch = useDispatch()
-  const { admin, isAdminAuth, error } = useSelector(state => state.adminAuth)
-  const { investor, isInvestorAuth } = useSelector(state => state.investorAuth)
-  const { customer, isCustomerAuth } = useSelector(state => state.customerAuth)
-  const [ user, setUser ] = useState();
+  const { isAdminAuthenticated } = useSelector(state => state.adminAuth)
+  const { notifications, loading } = useSelector(state => state.getNotifications)
+  const [noti, setNoti] = useState()
 
-  const handleRoute = () => {
-    if(admin){
-      router.push('/dashboard/account')
-    }
-  }
+  const[mon, setMon] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
 
-  const handleSignOut = async (e) => {
-    e.preventDefault();
-    try {
-      if(admin){
-        await dispatch(logoutAdmin());
-      } else if(investor){
-        await dispatch(logoutInvestor())
-      } else {
-        await dispatch(logoutCustomer())
-      }
-      // await dispatch(logoutAdmin())
-      router.push('/auth/login')
-    } catch (error) {
-      console.error('Error logging out: ', error)
-    }
-  }
 
   useEffect(() => {
     dispatch(loadAdmin());
-    dispatch(loadInvestor());
-    dispatch(loadCustomer());
   }, [dispatch])
 
   useEffect(() => {
-    if(admin){
-      setUser(admin)
-    } else if(investor){
-      setUser(investor)
-    } else {
-      setUser(customer)
+    if(isAdminAuthenticated){
+      dispatch(getAllNotifications());
     }
-  }, [admin, investor, customer])
+  }, [isAdminAuthenticated, dispatch])
+
+  useEffect(() => {
+    if(notifications){
+      setNoti(notifications)
+      console.log("Kuchh: ", notifications)
+    }
+  }, [notifications])
 
 
   return (
@@ -65,7 +43,7 @@ export const NotificationPopover = (props) => {
       }}
       onClose={onClose}
       open={open}
-      PaperProps={{ sx: { width: 200 } }}
+      PaperProps={{ sx: { width: 300, maxHeight: 500 } }}
     >
       <Box
         sx={{
@@ -74,19 +52,19 @@ export const NotificationPopover = (props) => {
         }}
       >
         <Typography variant="overline">
-          Account
+          Notifications
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          <Button
+          {/* <Button
             fullWidth
             variant="text"
             onClick={handleRoute}
           >
             {user ? user.name : ""}
-          </Button>
+          </Button> */}
         </Typography>
       </Box>
       <Divider />
@@ -97,13 +75,61 @@ export const NotificationPopover = (props) => {
           p: '8px',
           '& > *': {
             borderRadius: 1
-          }
+          },
         }}
       >
-        <MenuItem onClick={handleSignOut}>
+        {noti && noti.map((notification, index) => {
+          let msg;
+          const date = new Date(notification.createdAt)
+          const daye = date.getDate()
+          const day = (daye===1 || daye===21 || daye===31) ? `${daye}st` : (daye===2 || daye===22) ? `${daye}nd` : (daye===3 || daye===23) ? `${daye}rd` : `${daye}th`
+          const month = mon[date.getMonth()]
+          const year = date.getFullYear()
+          const isPm = (date.getHours()>11) ? true : false
+          const hour = isPm ? date.getHours()===12 ? 12 : date.getHours()-12 : date.getHours()===0 ? 12 : date.getHours()
+          const min = date.getMinutes()
+          const pm = isPm ? "Pm" : "Am"
+          if(notification.notName === "Instalment Added"){
+            msg = `${notification.name} added instalment of ${notification.amount} for ${notification.month}, ${notification.year} on ${day} ${month} ${year} at ${hour}:${min}${pm}`
+          } else if(notification.notName === "Customer Added"){
+            msg = `${notification.name} bought ${notification.custInfo} with ${notification.amount} as finance amount on ${day} ${month} ${year} at ${hour}:${min}${pm}`
+          } else if(notification.notName === "Investor Added"){
+            msg = `${notification.name} invested ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}`
+          } else if(notification.notName === "Withdrawl Added"){
+            msg = `${notification.name} withdrew ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}`
+          }
+
+
+          return(
+          <>
+            <MenuItem sx={{
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+              maxWidth: '100%',
+              whiteSpace: 'pre-wrap'
+            }}>
+              {msg}
+              {/* {notification.notName === "Instalment Added" ? <>{notification.name} added instalment of {notification.amount} for {notification.month}, {notification.year} on {day} {month} {year} at {hour}:{min}{pm}</> : notification.notName === "Customer Added" ? `${notification.name} bought ${notification.custInfo} with ${notification.amount} as finance amount on ${day} ${month} ${year} at ${hour}:${min}${pm}` : notification.notName === "Investor Added" ? `${notification.name} invested ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}` : `${notification.name} withdrew ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}`} */}
+            </MenuItem>
+
+            <Divider />
+          </>
+        )})}
+        {/* <MenuItem>
           Sign out
-        </MenuItem>
+        </MenuItem> */}
       </MenuList>
+      <Typography
+          color="text.secondary"
+          variant="body2"
+        >
+          <Button
+            fullWidth
+            // variant="text"
+          >
+            View All
+          </Button>
+        </Typography>
     </Popover>
   );
 };

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { addCustomerReducer, addInstalmentReducer, addInvestorReducer, addWithdrawlReducer, adminAuthReducer, contactReducer, dueUserReducer, getAllCustomersReducer, getAllInvestorsReducer, getCustomerReducer, getInstalmentsReducer, getInvestorReducer, getWithdrawlsReducer, updateAdInvestorReducer, updateAdminReducer, updateCustomerReducer, updatePrevAdminReducer, updatePrevInvestorsReducer } from './Reducers/AdminReducer'
+import { addCustomerReducer, addInstalmentReducer, addInvestorReducer, addWithdrawlReducer, adminAuthReducer, contactReducer, dueUserReducer, getAllCustomersReducer, getAllInvestorsReducer, getAllNotificationsReducer, getCustomerReducer, getInstalmentsReducer, getInvestorReducer, getNotificationReducer, getWithdrawlsReducer, updateAdInvestorReducer, updateAdminReducer, updateCustomerReducer, updatePrevAdminReducer, updatePrevInvestorsReducer } from './Reducers/AdminReducer'
 import { investorAuthReducer, updateInvestorReducer } from './Reducers/InvestorReducer';
 import { customerAuthReducer } from './Reducers/CustomerReducer';
 
@@ -27,6 +27,8 @@ const store = configureStore({
         updateAdInvestor: updateAdInvestorReducer,
         updatePrevAdmin: updatePrevAdminReducer,
         updatePrevInvestors: updatePrevInvestorsReducer,
+        getNotifications: getAllNotificationsReducer,
+        getNotification: getNotificationReducer,
     }
 });
 

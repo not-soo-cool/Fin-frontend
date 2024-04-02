@@ -15,7 +15,9 @@ import {
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { usePopover } from 'src/hooks/use-popover';
+import { useNotification } from 'src/hooks/use-notification';
 import { AccountPopover } from './account-popover';
+import { NotificationPopover } from './notification-popover';
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -24,6 +26,7 @@ export const TopNav = (props) => {
   const { onNavOpen } = props;
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const accountPopover = usePopover();
+  const notificationPopover = useNotification();
 
   return (
     <>
@@ -94,8 +97,8 @@ export const TopNav = (props) => {
                 >
                   <SvgIcon fontSize="small">
                     <BellIcon 
-                      onClick={accountPopover.handleOpen}
-                      ref={accountPopover.anchorRef}
+                      onClick={notificationPopover.handleOpen}
+                      ref={notificationPopover.anchorRef}
                     />
                   </SvgIcon>
                 </Badge>
@@ -118,6 +121,11 @@ export const TopNav = (props) => {
         anchorEl={accountPopover.anchorRef.current}
         open={accountPopover.open}
         onClose={accountPopover.handleClose}
+      />
+      <NotificationPopover
+        anchorEl={notificationPopover.anchorRef.current}
+        open={notificationPopover.open}
+        onClose={notificationPopover.handleClose}
       />
     </>
   );

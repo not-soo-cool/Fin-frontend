@@ -544,3 +544,47 @@ export const updatePrevInvestors = () => async(dispatch) => {
         })
     }
 }
+
+export const getAllNotifications = () => async(dispatch) => {
+    try {
+        dispatch({
+            type: "GetAllNotificationsRequest",
+        });
+
+        const {data} = await axios.get(`${serverUrl}/get/notifications`, {
+            withCredentials: true,
+        });
+
+        dispatch({
+            type: "GetAllNotificationsSuccess",
+            payload: data.notifications
+        })
+    } catch (error) {
+        dispatch({
+            type: "GetAllNotificationsFailure",
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const getNotification = (id) => async(dispatch) => {
+    try {
+        dispatch({
+            type: "GetNotificationRequest",
+        });
+
+        const {data} = await axios.get(`${serverUrl}/get/notification/${id}`, {
+            withCredentials: true,
+        });
+
+        dispatch({
+            type: "GetNotificationSuccess",
+            payload: data.notification
+        })
+    } catch (error) {
+        dispatch({
+            type: "GetNotificationFailure",
+            payload: error.response.data.message
+        })
+    }
+}
