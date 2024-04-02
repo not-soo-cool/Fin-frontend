@@ -93,7 +93,10 @@ export const TopNav = (props) => {
                   variant="dot"
                 >
                   <SvgIcon fontSize="small">
-                    <BellIcon />
+                    <BellIcon 
+                      onClick={accountPopover.handleOpen}
+                      ref={accountPopover.anchorRef}
+                    />
                   </SvgIcon>
                 </Badge>
               </IconButton>
