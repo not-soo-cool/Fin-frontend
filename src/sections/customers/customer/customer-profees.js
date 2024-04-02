@@ -20,7 +20,7 @@ export const CustomerFee = (props) => {
               color="text.secondary"
               variant="overline"
             >
-              Processing Fee
+              Locking Fee
             </Typography>
             <Typography variant="h4">
               ₹ {value}
