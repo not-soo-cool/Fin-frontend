@@ -87,7 +87,7 @@ export const NotificationPopover = (props) => {
           const year = date.getFullYear()
           const isPm = (date.getHours()>11) ? true : false
           const hour = isPm ? date.getHours()===12 ? 12 : date.getHours()-12 : date.getHours()===0 ? 12 : date.getHours()
-          const min = date.getMinutes()
+          const min = date.getMinutes()<10 ? `0${date.getMinutes()}` : date.getMinutes()
           const pm = isPm ? "Pm" : "Am"
           if(notification.notName === "Instalment Added"){
             msg = `${notification.name} added instalment of ${notification.amount} for ${notification.month}, ${notification.year} on ${day} ${month} ${year} at ${hour}:${min}${pm}`
@@ -109,7 +109,6 @@ export const NotificationPopover = (props) => {
               whiteSpace: 'pre-wrap'
             }}>
               {msg}
-              {/* {notification.notName === "Instalment Added" ? <>{notification.name} added instalment of {notification.amount} for {notification.month}, {notification.year} on {day} {month} {year} at {hour}:{min}{pm}</> : notification.notName === "Customer Added" ? `${notification.name} bought ${notification.custInfo} with ${notification.amount} as finance amount on ${day} ${month} ${year} at ${hour}:${min}${pm}` : notification.notName === "Investor Added" ? `${notification.name} invested ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}` : `${notification.name} withdrew ${notification.amount} on ${day} ${month} ${year} at ${hour}:${min}${pm}`} */}
             </MenuItem>
 
             <Divider />
