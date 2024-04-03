@@ -112,7 +112,7 @@ export const CurrentBarInstal = (props) => {
 
   const [ index, setIndex ] = useState(0);
   const [ bar, setBar ] = useState([]);
-  const [ year, setYear ] = useState(2021); 
+  const [ year, setYear ] = useState(2023); 
 
   const handleLeftClick = () => {
     setBar([{ name: 'Received Instalments', data: receivedInstal[index-1].month }, { name: 'Expected Instalments', data: expectedInstal[index-1].month }]);
