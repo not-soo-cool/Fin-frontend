@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 
 const useChartOptions = () => {
   const theme = useTheme();
-  const [ yAxisLabels, setYAxisLabels ] = useState(['0', '100', '200', '300', '400', '500']);
+  // const [ yAxisLabels, setYAxisLabels ] = useState(['0', '100', '200', '300', '400', '500']);
 
   return {
     chart: {
@@ -120,21 +120,21 @@ export const LifetimeBarProfit = (props) => {
     // if(index===1){
     //   setBar([{ name: 'This year', data: profits[index-1].month }]);
     // } else {
-      setBar([{ name: 'This year', data: profits[index-1].month }, { name: 'Last year', data: prev[index-1].month }])
+      setBar([{ name: 'Received', data: profits[index-1].month }, { name: 'Expected', data: prev[index-1].month }])
     // }
     setIndex(prevIndex => prevIndex-1);
     setYear(prevYear => prevYear-1);
   }
 
   const handleRightClick = () => {
-    setBar([{ name: 'This year', data: profits[index+1].month }, { name: 'Last year', data: prev[index+1].month }]);
+    setBar([{ name: 'Received', data: profits[index+1].month }, { name: 'Expected', data: prev[index+1].month }]);
     setIndex(prevIndex => prevIndex+1);
     setYear(prevYear => prevYear+1)
   }
 
   useEffect(() => {
     if (profits) {
-      setBar([{ name: 'This year', data: profits[index].month }, { name: 'Last year', data: prev[index].month }]);
+      setBar([{ name: 'Received', data: profits[index].month }, { name: 'Expected', data: prev[index].month }]);
     }
   }, [profits, prev]);
 
