@@ -185,7 +185,7 @@ const Page = () => {
   const [ isClient, setIsClient ] = useState(false)
 
   const dispatch = useDispatch();
-  const { investors } = useSelector(state => state.getInvestors);
+  const { investors, loading } = useSelector(state => state.getInvestors);
 
   const { message, error } = useSelector(state => state.investors)
   const { message: withdrawlMessage, error: withdrawlError } = useSelector(state => state.addWithdrawl)
@@ -325,6 +325,7 @@ const Page = () => {
               <div>
                 <Button 
                   onClick={handleClickOpen}
+                  disabled={loading}
                   startIcon={(
                     <SvgIcon fontSize="small">
                       <PlusIcon />
@@ -336,7 +337,9 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <InvestorsSearch onSearch={handleSearch} />
+            {!loading &&
+              <InvestorsSearch onSearch={handleSearch} />
+            }
             {investors && 
             <InvestorsTable
               investors={investors}

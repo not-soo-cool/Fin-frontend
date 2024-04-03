@@ -185,7 +185,7 @@ const Page = () => {
   const dialogSize = 'lg';
 
   const dispatch = useDispatch();
-  const { customers } = useSelector(state => state.getCustomers)
+  const { customers, loading } = useSelector(state => state.getCustomers)
   const { investors } = useSelector(state => state.getInvestors)
 
   const [page, setPage] = useState(0);
@@ -369,6 +369,7 @@ const Page = () => {
               <div>
                 <Button 
                   onClick={handleClickOpen}
+                  disabled={loading}
                   startIcon={(
                     <SvgIcon fontSize="small">
                       <PlusIcon />
@@ -385,7 +386,10 @@ const Page = () => {
               justifyContent="space-between"
               spacing={4}
             > */}
+            {
+              !loading && 
               <CustomersSearch onSearch={handleSearch} onSelect={handleSelect}/>
+            }
 
               {/* <Button
                 color="inherit"
