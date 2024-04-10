@@ -29,7 +29,6 @@ export const NotificationPopover = (props) => {
   useEffect(() => {
     if(notifications){
       setNoti(notifications)
-      console.log("Kuchh: ", notifications)
     }
   }, [notifications])
 
