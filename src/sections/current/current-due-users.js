@@ -18,6 +18,7 @@ import {
   TablePagination
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export const CurrentDueUsers = (props) => {
@@ -56,36 +57,40 @@ export const CurrentDueUsers = (props) => {
                 divider={hasDivider}
                 key={user._id}
               >
-                <ListItemAvatar>
-                  {
-                    products[0].image
-                      ? (
-                        <Box
-                          component="img"
-                          src={products[0].image}
-                          sx={{
-                            borderRadius: 1,
-                            height: 48,
-                            width: 48
-                          }}
-                        />
-                      )
-                      : (
-                        <Box
-                          sx={{
-                            borderRadius: 1,
-                            backgroundColor: 'neutral.200',
-                            height: 48,
-                            width: 48
-                          }}
-                        />
-                      )
-                  }
-                </ListItemAvatar>
+                <Link href={`/customers/${user._id}`} style={{
+                  textDecoration: 'none',
+                  color: 'black'
+                }}>
+                  <ListItemAvatar>
+                    {
+                      products[0].image
+                        ? (
+                          <Box
+                            component="img"
+                            src={products[0].image}
+                            sx={{
+                              borderRadius: 1,
+                              height: 48,
+                              width: 48
+                            }}
+                          />
+                        )
+                        : (
+                          <Box
+                            sx={{
+                              borderRadius: 1,
+                              backgroundColor: 'neutral.200',
+                              height: 48,
+                              width: 48
+                            }}
+                          />
+                        )
+                    }
+                  </ListItemAvatar>
+                </Link>
                 <ListItemText
                   primary={user.name}
                   primaryTypographyProps={{ variant: 'subtitle1' }}
-                  // secondary={`₹ ${user.amountDue} due ${days} ago`}
                   secondary={`₹ ${user.netNextEMI} due since ${date}th ${month}, ${year}`}
                   secondaryTypographyProps={{ variant: 'body2' }}
                 />
@@ -99,21 +104,6 @@ export const CurrentDueUsers = (props) => {
           })}
         </List>
         <Divider />
-        {/* <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button
-            color="inherit"
-            endIcon={(
-            <SvgIcon fontSize="small">
-              <ArrowRightIcon />
-            </SvgIcon>
-            )}
-            size="small"
-            variant="text"
-          >
-            View all
-          </Button>
-        </CardActions> */}
-      {/* </Scrollbar> */}
       <TablePagination
         component="div"
         count={count}

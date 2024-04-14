@@ -55,6 +55,9 @@ export const CurrentListInstal = (props) => {
                 <TableCell>
                   Customer
                 </TableCell>
+                <TableCell>
+                  Amount
+                </TableCell>
                 <TableCell sortDirection="desc">
                   Date
                 </TableCell>
@@ -78,6 +81,9 @@ export const CurrentListInstal = (props) => {
                     </TableCell>
                     <TableCell>
                       {instal.customer.name}
+                    </TableCell>
+                    <TableCell>
+                      {instal.amount}
                     </TableCell>
                     <TableCell>
                       {createdAt}

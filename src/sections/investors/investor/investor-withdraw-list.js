@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SeverityPill } from 'src/components/severity-pill';
-import { useEffect, useState } from 'react';
 
 const statusMap = {
   progress: 'warning',
@@ -28,11 +27,8 @@ const statusMap = {
 
 export const InvestorListWithdraw = (props) => {
   const { 
-    instalments, 
-    orders = [], 
     sx,
     count,
-    products = [], 
     page = 0,
     rowsPerPage = 0,
     onPageChange = () => {},
@@ -54,6 +50,9 @@ export const InvestorListWithdraw = (props) => {
                 </TableCell>
                 <TableCell>
                   Customer
+                </TableCell>
+                <TableCell>
+                  Amount
                 </TableCell>
                 <TableCell sortDirection="desc">
                   Date
@@ -78,6 +77,9 @@ export const InvestorListWithdraw = (props) => {
                     </TableCell>
                     <TableCell>
                       {instal.investor.name}
+                    </TableCell>
+                    <TableCell>
+                      {instal.amount}
                     </TableCell>
                     <TableCell>
                       {createdAt}
