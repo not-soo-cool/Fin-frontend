@@ -89,7 +89,7 @@ export const CurrentDueUsers = (props) => {
                   </ListItemAvatar>
                 </Link>
                 <ListItemText
-                  primary={user.name}
+                  primary={`${user.name}  (${user.mob})`}
                   primaryTypographyProps={{ variant: 'subtitle1' }}
                   secondary={`₹ ${user.netNextEMI} due since ${date}th ${month}, ${year}`}
                   secondaryTypographyProps={{ variant: 'body2' }}

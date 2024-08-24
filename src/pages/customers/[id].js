@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { format, subDays, subHours } from 'date-fns';
 import { Box, Button, Container, Dialog, Unstable_Grid2 as Grid, Stack, SvgIcon, Typography } from '@mui/material';
+import CurrencyRupeeIcon from '@heroicons/react/24/solid/CurrencyRupeeIcon';
+import ListBulletIcon from '@heroicons/react/24/solid/ListBulletIcon';
 import { Layout as CustomerLayout } from 'src/layouts/customer/layout';
 import { CustomerPrincipal } from 'src/sections/customers/customer/customer-worth';
 import { CustomerDown } from 'src/sections/customers/customer/customer-downpay';
@@ -27,6 +29,7 @@ import { applyPagination } from 'src/utils/apply-pagination';
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon';
 import { EditCustomer } from 'src/sections/customers/customer/customer-edit';
 import { toast } from 'react-toastify';
+import { CustomerMaster } from 'src/sections/customers/customer/customer-master';
 
 const now = new Date();
 
@@ -51,6 +54,7 @@ const Page = () => {
   const [isClient, setIsClient] = useState(false);
   const [pie, setPie] = useState(false)
   const [date, setDate] = useState()
+  const [purDate, setPurDate] = useState()
   const { isAdminAuthenticated, loading } = useSelector(state => state.adminAuth)
   const {isCustomerAuthenticated, loading: customerLoading} = useSelector(state => state.customerAuth)
   const {isInvestorAuthenticated} = useSelector(state => state.investorAuth)
@@ -133,7 +137,9 @@ const Page = () => {
       // }
       const nextDate = new Date(customer.nextEMIDate);
       const currDate = format(nextDate, "dd/MM/yyyy")
+      const purchaseDate = format(new Date(customer.products[0].pruchaseDate), "dd/MM/yyyy")
       setDate(currDate);
+      setPurDate(purchaseDate);
       if(customer.products[0].finance.netAmount!==0){
         setPie(true);
       }
@@ -308,6 +314,74 @@ const Page = () => {
               // value={customer ? customer.amountDue>0 ? date : "Completed" : "01/01/2006"}
             />
           </Grid>
+
+          <Grid
+            xs={12}
+            sm={6}
+            lg={3}
+          >
+            <CustomerMaster
+              difference={12}
+              positive
+              sx={{ height: '100%' }}
+              value={customer ? `₹ ${customer.penalty.toFixed(0)}` : 0}
+              title = "Penalty"
+              icon = {<CurrencyRupeeIcon />}
+              bgColor = 'error.main'
+              font = 'h4'
+            />
+          </Grid>
+
+          <Grid
+            xs={12}
+            sm={6}
+            lg={3}
+          >
+            <CustomerMaster
+              difference={12}
+              positive
+              sx={{ height: '100%' }}
+              value={customer ? customer.penalty.toFixed(0) : 0}
+              title = "Page No."
+              icon = {<ListBulletIcon />}
+              bgColor = 'warning.main'
+              font = 'h4'
+            />
+          </Grid>
+
+          <Grid
+            xs={12}
+            sm={6}
+            lg={3}
+          >
+            <CustomerMaster
+              difference={12}
+              positive
+              sx={{ height: '100%' }}
+              value={customer ? customer.products[0].prod.name : ""}
+              title = "Product Model"
+              icon = {<CurrencyRupeeIcon />}
+              bgColor = 'success.main'
+              font = 'h6'
+            />
+          </Grid>
+          <Grid
+            xs={12}
+            sm={6}
+            lg={3}
+          >
+            <CustomerMaster
+              difference={12}
+              positive
+              sx={{ height: '100%' }}
+              value={customer ? purDate : "01/01/2006"}
+              title = "Product Purchase date"
+              icon = {<CurrencyRupeeIcon />}
+              bgColor = 'primary.main'
+              font = 'h5'
+            />
+          </Grid>
+
           <Grid
             xs={12}
             lg={8}
